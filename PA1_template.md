@@ -41,7 +41,18 @@ StepsPerDay <- data [, list (DaySteps = sum (steps, na.rm = TRUE)),
                      keyby="date"]
 ```
 
-Make a histogram of the total number of steps taken each day:
+Make a **histogram** of the total number of steps:
+
+```r
+ggplot (StepsPerDay, aes (x = DaySteps)) + 
+  geom_histogram () +
+  labs (x = "Total number of steps taken per day", 
+        y = "Frequency") 
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+
+Make a special histogram of the total number of steps taken **each** day:
 
 ```r
 ggplot (StepsPerDay, aes (x = date, y = DaySteps)) + 
@@ -50,7 +61,7 @@ ggplot (StepsPerDay, aes (x = date, y = DaySteps)) +
   labs (x = "Date", y = "Total number of steps taken per day") 
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 Calculate and report the mean and median of the total number of steps taken per day:
 
@@ -81,7 +92,7 @@ ggplot (DailyActivity, aes (x = interval, y = Average)) +
   labs (x = "Interval", y = "Average number of steps taken (across all days)")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -162,18 +173,32 @@ Create a new dataset that is equal to the original dataset but with the missing 
 dataFilled <- rbind (dataNA, dataAvailable)
 ```
 
-Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. 
+Make a **histogram** of the total number of steps:
 
 ```r
 StepsPerDayFilled <- dataFilled [, list (DaySteps = sum (steps, na.rm = TRUE)), 
                      keyby="date"]
+ggplot (StepsPerDayFilled, aes (x = DaySteps)) + 
+  geom_histogram () +
+  labs (x = "Total number of steps taken per day", 
+        y = "Frequency") 
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
+
+Make a special histogram of the total number of steps taken **each** day:
+
+```r
 ggplot (StepsPerDayFilled, aes (x = date, y = DaySteps)) + 
   geom_histogram (aes (fill = DaySteps), stat="identity") +
   scale_fill_gradient ("Steps per day", low = "green", high = "red") +
   labs (x = "Date", y = "Total number of steps taken per day") 
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+
+
+Calculate and report the mean and median total number of steps taken per day: 
 
 ```r
 mean (StepsPerDayFilled$DaySteps, na.rm = TRUE)
@@ -214,4 +239,4 @@ ggplot (DailyActivityFilled, aes (x = interval, y = Average)) +
   labs (x = "Interval", y = "Average number of steps taken (across all days)")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png) 

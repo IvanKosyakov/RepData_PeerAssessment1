@@ -29,7 +29,15 @@ StepsPerDay <- data [, list (DaySteps = sum (steps, na.rm = TRUE)),
                      keyby="date"]
 ```
 
-Make a histogram of the total number of steps taken each day:
+Make a **histogram** of the total number of steps:
+```{r}
+ggplot (StepsPerDay, aes (x = DaySteps)) + 
+  geom_histogram () +
+  labs (x = "Total number of steps taken per day", 
+        y = "Frequency") 
+```
+
+Make a special histogram of the total number of steps taken **each** day:
 ```{r}
 ggplot (StepsPerDay, aes (x = date, y = DaySteps)) + 
   geom_histogram (aes (fill = DaySteps), stat="identity") +
@@ -79,14 +87,27 @@ Create a new dataset that is equal to the original dataset but with the missing 
 dataFilled <- rbind (dataNA, dataAvailable)
 ```
 
-Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. 
+Make a **histogram** of the total number of steps:
 ```{r}
 StepsPerDayFilled <- dataFilled [, list (DaySteps = sum (steps, na.rm = TRUE)), 
                      keyby="date"]
+ggplot (StepsPerDayFilled, aes (x = DaySteps)) + 
+  geom_histogram () +
+  labs (x = "Total number of steps taken per day", 
+        y = "Frequency") 
+```
+
+Make a special histogram of the total number of steps taken **each** day:
+```{r}
 ggplot (StepsPerDayFilled, aes (x = date, y = DaySteps)) + 
   geom_histogram (aes (fill = DaySteps), stat="identity") +
   scale_fill_gradient ("Steps per day", low = "green", high = "red") +
   labs (x = "Date", y = "Total number of steps taken per day") 
+```
+
+
+Calculate and report the mean and median total number of steps taken per day: 
+```{r}
 mean (StepsPerDayFilled$DaySteps, na.rm = TRUE)
 median (StepsPerDayFilled$DaySteps, na.rm = TRUE)
 ```
