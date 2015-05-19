@@ -24,6 +24,8 @@ library (plyr)
 
 ## Loading and preprocessing the data
 
+Following instructions are used to extract .csv file from .zip file and to read data from the file into data table.
+
 
 ```r
 unzip ("activity.zip")
@@ -52,7 +54,7 @@ ggplot (StepsPerDay, aes (x = DaySteps)) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
-Make a special histogram of the total number of steps taken **each** day:
+Make a special histogram (or should I say "barplot"?) of the total number of steps taken **each** day:
 
 ```r
 ggplot (StepsPerDay, aes (x = date, y = DaySteps)) + 
@@ -117,7 +119,7 @@ sum (apply (data, 1, anyNA))
 ## [1] 2304
 ```
 
-Devise a strategy for filling in all of the missing values in the dataset:
+In the following code you can see a strategy for filling in all of the missing values in the dataset. The strategy is to replace *NA* values with *average (mean)* values for corresponding time interval. *Average (mean)* values are already calculated in the *DailyActivity* dataset. 
 
 ```r
 dataNA <- data [apply (data, 1, anyNA), ]
@@ -186,7 +188,7 @@ ggplot (StepsPerDayFilled, aes (x = DaySteps)) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
 
-Make a special histogram of the total number of steps taken **each** day:
+Make a special histogram (or should I say "barplot"?) of the total number of steps taken **each** day:
 
 ```r
 ggplot (StepsPerDayFilled, aes (x = date, y = DaySteps)) + 
@@ -240,3 +242,5 @@ ggplot (DailyActivityFilled, aes (x = interval, y = Average)) +
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-16-1.png) 
+
+From this plot we can see that there is a significant differences in activity patterns between weekdays and weekends.

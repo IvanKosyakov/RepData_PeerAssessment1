@@ -14,6 +14,8 @@ library (plyr)
 
 ## Loading and preprocessing the data
 
+Following instructions are used to extract .csv file from .zip file and to read data from the file into data table.
+
 ```{r}
 unzip ("activity.zip")
 data <- read.csv ("activity.csv")
@@ -37,7 +39,7 @@ ggplot (StepsPerDay, aes (x = DaySteps)) +
         y = "Frequency") 
 ```
 
-Make a special histogram of the total number of steps taken **each** day:
+Make a special histogram (or should I say "barplot"?) of the total number of steps taken **each** day:
 ```{r}
 ggplot (StepsPerDay, aes (x = date, y = DaySteps)) + 
   geom_histogram (aes (fill = DaySteps), stat="identity") +
@@ -73,7 +75,7 @@ Calculate and report the total number of missing values in the dataset (i.e. the
 sum (apply (data, 1, anyNA))
 ```
 
-Devise a strategy for filling in all of the missing values in the dataset:
+In the following code you can see a strategy for filling in all of the missing values in the dataset. The strategy is to replace *NA* values with *average (mean)* values for corresponding time interval. *Average (mean)* values are already calculated in the *DailyActivity* dataset. 
 ```{r}
 dataNA <- data [apply (data, 1, anyNA), ]
 dataAvailable <- data [!apply (data, 1, anyNA), ]
@@ -97,7 +99,7 @@ ggplot (StepsPerDayFilled, aes (x = DaySteps)) +
         y = "Frequency") 
 ```
 
-Make a special histogram of the total number of steps taken **each** day:
+Make a special histogram (or should I say "barplot"?) of the total number of steps taken **each** day:
 ```{r}
 ggplot (StepsPerDayFilled, aes (x = date, y = DaySteps)) + 
   geom_histogram (aes (fill = DaySteps), stat="identity") +
@@ -132,3 +134,5 @@ ggplot (DailyActivityFilled, aes (x = interval, y = Average)) +
   facet_wrap (~WeekendFeature) +
   labs (x = "Interval", y = "Average number of steps taken (across all days)")
 ```
+
+From this plot we can see that there is a significant differences in activity patterns between weekdays and weekends.
